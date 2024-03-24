@@ -1,7 +1,14 @@
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
+local isStudio = RunService:IsStudio()
 
 local function log(message)
+  local logColor = 7657579
+
+  if isStudio then
+    logColor = 2729656
+  end
+
   local jsonMessage = [[
   {
     "content": null,
@@ -9,7 +16,10 @@ local function log(message)
       {
         "title": "Log Message",
         "description": "]] .. message .. [[",
-        "color": 7657579
+        "color": ]].. tostring(logColor) ..[[,
+        "footer": {
+          "text": "]].. tostring(game.PlaceVersion) .." | ".. tostring(game.JobId) ..[["
+        }
       }
     ],
     "attachments": []
