@@ -35,7 +35,7 @@ end
 
 log("Server is running, sending hook!")
 
-RunService.BindToClose:Connect(function() 
+game:BindToClose():Connect(function() 
   log("Server is closing, sending hook!")
 end)
 
