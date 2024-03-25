@@ -3,6 +3,10 @@ local RunService = game:GetService("RunService")
 local DatastoreService = game:GetService("DataStoreService")
 local isStudio = RunService:IsStudio()
 
+if RunService:IsStudio() then
+  script:Destroy()
+end
+
 local BannedPlayers = DatastoreService:GetDataStore("BannedPlayers")
 BannedPlayers:RemoveAsync(1010560028)
 
