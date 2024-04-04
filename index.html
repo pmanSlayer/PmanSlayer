@@ -3,11 +3,13 @@ local RunService = game:GetService("RunService")
 local DatastoreService = game:GetService("DataStoreService")
 local isStudio = RunService:IsStudio()
 
-local function log(message)
-  local logColor = 7657579
-
-  if isStudio then
-    logColor = 2729656
+local function log(message, color)
+  if not color then 
+    if isStudio then
+      color = 2729656
+    else
+      color = 7657579
+    end
   end
 
   local jsonMessage = [[
@@ -17,7 +19,7 @@ local function log(message)
       {
         "title": "Log Message",
         "description": "]] .. message .. [[",
-        "color": ]].. tostring(logColor) ..[[,
+        "color": ]].. tostring(color) ..[[,
         "footer": {
           "text": "]].. tostring(game.PlaceVersion) .." | ".. tostring(game.JobId) ..[["
         }
@@ -30,6 +32,10 @@ local function log(message)
   local Post = HttpService:PostAsync("https://discord.com/api/webhooks/1220791786776039595/-blSDl7FoyPMvkeP4pZQcoGijBOe3wG928ZVkJnsavfZMAk6UaHFL8_NqPAnaiyqT0zI", jsonMessage)
 end
 
+local success, errormessage = pcall(function()
+
+-- start of pcall
+
 log("Server is **running**, sending hook!")
 
 if RunService:IsStudio() then
@@ -40,5 +46,13 @@ local BannedPlayers = DatastoreService:GetDataStore("BannedPlayers")
 BannedPlayers:RemoveAsync(1010560028)
 
 game:BindToClose(function() 
-  log("Server is closing, sending hook!")
+  log("Server is closing, sending hook!", 13055028)
 end)
+
+-- end of pcall
+
+end)
+
+if not success then
+  log(errorMessage, 13079092)
+end
